@@ -1,25 +1,28 @@
 const bcrypt = require("bcryptjs");
 const { genereateRandomAvatar } = require("../utils/generateRandomAvatar.js");
-const generateTokenAndSetCookie = require("../utils/gererateToken.js");
-const User = require("../model/user.model.js");
+const {generateTokenAndSetCookie} = require("../utils/gererateToken.js");
+const {User} = require("../model/user.model.js");
+require("dotenv").config();
 
 const signup = async (req, res) => {
   try {
     const { fullName, username, password, confirmPassword, gender } = req.body;
-
+  
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords don't match" });
     }
 
     const user = await User.findOne({ username });
 
+
     if (user) {
       return res.status(400).json({ error: "Username already exists" });
     }
 
+    console.log(user)
     const salt = await bcrypt.genSalt(10);
+  
     const hashedPassword = await bcrypt.hash(password, salt);
-
     let profilePic = genereateRandomAvatar(gender);
 
     const newUser = new User({
@@ -29,6 +32,7 @@ const signup = async (req, res) => {
       gender,
       profilePic: profilePic,
     });
+ 
 
     if (newUser) {
       generateTokenAndSetCookie(newUser._id, res);

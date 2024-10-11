@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
 const { authrouter } = require("./routes/auth.routes.js");
+const { Userrouter } = require("./routes/user.routes.js");
 const { connectToMongoDBAtlas } = require("./db/connection.js");
 
 const PORT = process.env.PORT || 5000;
@@ -25,6 +26,6 @@ app.use("/api/auth", authrouter);
 app.use("/api/users", Userrouter);
 
 app.listen(PORT, () => {
-  connectToMongoDBAtlas;
+  connectToMongoDBAtlas();
   console.log(`Server Running on port ${PORT}`);
 });
