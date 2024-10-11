@@ -7,25 +7,24 @@ import SignUp from "./pages/signup/Signup";
 import Home from "./pages/home/Home";
 
 function App() {
-  // const { authUser } = useAuthContext();
-  var authUser=true;
+  const { authUser } = useAuthContext();
+
   return (
     <div className="p-4 h-screen flex items-center justify-center">
       <Routes>
         <Route
           path="/"
-          // element={authUser ? <Home /> : <Navigate to={"/login"} />}
-          element={<Home />}
+          element={authUser ? <Home /> : <Navigate to={"/login"} />}
         />
         <Route
           path="/login"
-          // element={authUser ? <Navigate to="/" /> : <Login />}
-          element={<Login />}
+          element={authUser ? <Navigate to="/" /> : <Login />}
+         
         />
         <Route
           path="/signup"
-          // element={authUser ? <Navigate to="/" /> : <SignUp />}
-          element={ <SignUp />}
+          element={authUser ? <Navigate to="/" /> : <SignUp />}
+       
         />
       </Routes>
       <Toaster />
