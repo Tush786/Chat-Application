@@ -1,6 +1,4 @@
 import { useSocketContext } from "../../context/SocketContext";
-import getLastMessage from "../../utils/getLastMessage";
-
 import useConversation from "../../zustand/useConversation";
 
 const Conversation = ({ conversation, lastIdx, emoji }) => {
@@ -10,7 +8,7 @@ const Conversation = ({ conversation, lastIdx, emoji }) => {
   const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
 
-  console.log(getLastMessage(conversation._id));
+  //   console.log(getLastMessage(conversation._id));
 
   return (
     <>
